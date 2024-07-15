@@ -90,6 +90,7 @@ int scan(token_t *token){
     switch (c)
     {
     case EOF:
+        token->token_type = EOF_T;
         return 0;
     case '+':
         token->token_type = PLUS_T;
@@ -115,4 +116,5 @@ int scan(token_t *token){
         exit(0);
     }
 
+    return 1;
 }

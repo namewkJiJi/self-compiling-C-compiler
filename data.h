@@ -14,6 +14,9 @@
 
 extern_ int line;
 extern_ int putBack;
+
 extern_ FILE * inFile;
+
+extern_ token_t token;
 
 #endif

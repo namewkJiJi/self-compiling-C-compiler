@@ -4,21 +4,40 @@
 #ifndef DEFS_H
 #define DEFS_H
 
-// token by lexical scanning
-typedef enum _token_type_t
+// token in lexical scanning
+enum
 {
     PLUS_T,
     MINUS_T,
     STAR_T,
     SLASH_T,
     INTLIT_T,// integer literal
-
-}token_type_t;
+    EOF_T,
+};
 
 typedef struct _token_t
 {
-    token_type_t token_type;
+    int token_type;
     int intvalue;//数字类型有值   
 }token_t;
+
+
+//AST 
+enum
+{
+    A_ADD,
+    A_SUBTRACT,
+    A_MULTIPLY,
+    A_DIVID,
+    A_INTLIT,
+};
+
+typedef struct _ASTNode_t
+{
+    int op;
+    struct _ASTNode_t * left;
+    struct _ASTNode_t * right;
+    int intvalue;
+}ASTNode_t;
 
 #endif

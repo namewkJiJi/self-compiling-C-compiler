@@ -15,14 +15,9 @@ char *tokstr[] = { "+", "-", "*", "/", "intlit" };
 // Loop scanning in all the tokens in the input file.
 // Print out details of each token found.
 static void scanfile() {
-  token_t T;
-
-  while (scan(&T)) {
-    printf("Token %s", tokstr[T.token_type]);
-    if (T.token_type == INTLIT_T)
-      printf(", value %d", T.intvalue);
-    printf("\n");
-  }
+  scan(&token);
+  ASTNode_t * n = binexpr();
+  printf("%d\n",interpretAST(n));
 }
 
 int main(int argc,char** argv){
