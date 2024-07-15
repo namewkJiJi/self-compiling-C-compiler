@@ -12,7 +12,7 @@ ASTNode_t * mk_astleaf(int op,int val);
 ASTNode_t * mk_astunary(int op,ASTNode_t * left,int val);
 
 //expr
-ASTNode_t * binexpr(void);
+ASTNode_t * binexpr(int prec);
 
 //interp
 int interpretAST(ASTNode_t * node);

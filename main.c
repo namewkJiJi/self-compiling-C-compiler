@@ -16,7 +16,7 @@ char *tokstr[] = { "+", "-", "*", "/", "intlit" };
 // Print out details of each token found.
 static void scanfile() {
   scan(&token);
-  ASTNode_t * n = binexpr();
+  ASTNode_t * n = binexpr(0);
   printf("%d\n",interpretAST(n));
 }
 

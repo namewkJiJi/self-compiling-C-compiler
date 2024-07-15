@@ -44,26 +44,54 @@ static ASTNode_t * primary(void){
     }
 }
 
-//建立二元表达式的AST树
-ASTNode_t * binexpr(void){
-    ASTNode_t * n, *left,* right;
-    int intvalue,op;
+//Pratt Parsing
+static int op_prec[] = {10,10,20,20,  0     ,0};
+//               +,  -, *, /,INTLIT_T,EOF_T
 
-    //获取左子树
+static int get_prec(int op){
+   int prec = op_prec[op];
+   //syntax check
+   if(prec == 0){
+    printf("syntax error on line %d\n",line);
+    exit(1);
+   }
+
+   return prec; 
+}
+
+//建立二元表达式的AST树
+ASTNode_t * binexpr(int prec){
+    //局部变量，递归在不同的层有不同的值
+    ASTNode_t *left,* right;
+    int op;
+
+    //获取左子树(数字)
     left = primary();
+    
+    //获取根节点（符号）
     if(token.token_type == EOF_T){
         return left;
     }
-
-    //获取根节点（符号）
     op = token.token_type;
-    //更新token
-    scan(&token);
+    
+    while(get_prec(op) > prec){
+        //更新token
+        //放在此位置：
+        //token是全局的，要在进入下一层递归前更新
+        scan(&token);
 
-    //获取右子树
-    right = binexpr();
+        //获取右子树
+        right = binexpr(get_prec(op));
 
-    //设置根节点
-    n = mk_astnode(op,left,right,0);//根节点无整数值，设为0，无所谓
-    return n;
+        //生成子树
+        left = mk_astnode(arith_op(op),left,right,0);//根节点无整数值，设为0，无所谓
+
+        //更新操作符
+        if(token.token_type == EOF_T){
+            return left;
+        }
+        op = token.token_type;
+    }
+    
+    return left;
 }
