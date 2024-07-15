@@ -1,6 +1,6 @@
 # a self-compiling compiler for a subset of the C language
 
-## Scanner
+## Lexical Scanning
 
 five lexical elements(token):
 
@@ -22,11 +22,6 @@ extern_的使用：
 - 在main.c文件中，在引用data.h之前定义extern_为空，即在main.c中实际定义被声明为extern_的变量
 - data.h中的宏extern_允许你通过在不同的编译单元中**有条件地包含文件**(是否在包含文件之前空定义extern_)来控制变量的定义与声明，从而实现变量的外部链接。在一个编译单元中定义变量，在其他编译单元中声明变量
 
-## Parser
+## Operator Precedence
 
-目的：识别输入并警告任何**语法**错误
-
-BNF: Backus-Naur Form
-
-- 递归的：一个表达式通过引用其他表达式来定义，直到触底。
-- 终结符/非终结符
+定义运算优先级-对表达式进行分类：乘法表达式和加法表达式

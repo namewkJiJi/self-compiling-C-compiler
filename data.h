@@ -11,6 +11,7 @@
 #endif
 
 #include <stdio.h>
+#include "defs.h"
 
 extern_ int line;
 extern_ int putBack;

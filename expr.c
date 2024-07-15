@@ -5,6 +5,7 @@
 #include "defs.h"
 #include "data.h"
 #include "decl.h"
+#include <stdlib.h>
 
 //token to ast operation
 static int arith_op(int tok){
